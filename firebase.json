@@ -6,7 +6,7 @@
         "headers": [{ "key": "Cache-Control", "value": "no-cache" }]
       }
     ],
-    "public": "build",
+    "public": "public",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
