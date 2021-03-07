@@ -85,7 +85,7 @@ class Buttons extends React.Component {
 class Main extends React.Component {
   constructor() {
     super();
-    this.speed = 100;
+    // this.speed = 1000;
     this.rows = 30;
     this.cols = 30;
 
@@ -93,26 +93,21 @@ class Main extends React.Component {
       gridFull: Array(this.rows)
         .fill()
         .map(() => Array(this.cols).fill(false)),
+      speed: 1000,
     };
+
+    this.selectBox = this.selectBox.bind(this);
+    this.seed = this.seed.bind(this);
+    this.play = this.play.bind(this);
+    this.clear = this.clear.bind(this);
+    this.calculateBoard = this.calculateBoard.bind(this);
+    this.playButton = this.playButton.bind(this);
+    this.pauseButton = this.pauseButton.bind(this);
   }
 
   selectBox = (row, col) => {
     let gridCopy = arrayClone(this.state.gridFull);
     gridCopy[row][col] = !gridCopy[row][col];
-    this.setState({
-      gridFull: gridCopy,
-    });
-  };
-
-  seed = () => {
-    let gridCopy = arrayClone(this.state.gridFull);
-    for (let i = 0; i < this.rows; i++) {
-      for (let j = 0; j < this.cols; j++) {
-        if (Math.floor(Math.random() * 4) === 1) {
-          gridCopy[i][j] = true;
-        }
-      }
-    }
     this.setState({
       gridFull: gridCopy,
     });
@@ -137,6 +132,20 @@ class Main extends React.Component {
     this.playButton();
   };
 
+  seed = () => {
+    let gridCopy = arrayClone(this.state.gridFull);
+    for (let i = 0; i < this.rows; i++) {
+      for (let j = 0; j < this.cols; j++) {
+        if (Math.floor(Math.random() * 4) === 1) {
+          gridCopy[i][j] = true;
+        }
+      }
+    }
+    this.setState({
+      gridFull: gridCopy,
+    });
+  };
+
   clear = () => {
     var grid = Array(this.rows)
       .fill()
@@ -147,24 +156,42 @@ class Main extends React.Component {
     });
   };
 
+  calculateBoard = (col, row, board) => {
+    let neighbors = 0;
+    for (let i = -1; i <= 1; i++) {
+      if (board[col + 1]?.[row + i] === true) {
+        neighbors++;
+      }
+      if (board[col - 1]?.[row + i] === true) {
+        neighbors++;
+      }
+    }
+
+    if (board[col][row + 1] === true) neighbors++;
+    if (board[col][row - 1] === true) neighbors++;
+
+    if (board[col][row] === false) {
+      if (neighbors === 3) {
+        board[col][row] = true;
+      } else {
+        board[col][row] = false;
+      }
+    } else {
+      if (neighbors < 2 || neighbors > 3) {
+        board[col][row] = false;
+      } else {
+        board[col][row] = true;
+      }
+    }
+  };
+
   play = () => {
     let g = this.state.gridFull;
     let g2 = arrayClone(this.state.gridFull);
 
     for (let i = 0; i < this.rows; i++) {
       for (let j = 0; j < this.cols; j++) {
-        let count = 0;
-        if (i > 0) if (g[i - 1][j]) count++;
-        if (i > 0 && j > 0) if (g[i - 1][j - 1]) count++;
-        if (i > 0 && j < this.cols - 1) if (g[i - 1][j + 1]) count++;
-        if (j < this.cols - 1) if (g[i][j + 1]) count++;
-        if (j > 0) if (g[i][j - 1]) count++;
-        if (i < this.rows - 1) if (g[i + 1][j]) count++;
-        if (i < this.rows - 1 && j > 0) if (g[i + 1][j - 1]) count++;
-        if (i < this.rows - 1 && j < this.cols - 1)
-          if (g[i + 1][j + 1]) count++;
-        if (g[i][j] && (count < 2 || count > 3)) g2[i][j] = false;
-        if (!g[i][j] && count === 3) g2[i][j] = true;
+        g[i][j] = this.calculateBoard(i, j, g2);
       }
     }
     this.setState({
