@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import { ButtonToolbar, Button } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 
 class Box extends React.Component {
   selectBox = () => {
@@ -59,26 +59,24 @@ class Buttons extends React.Component {
   render() {
     return (
       <div className="center">
-        <ButtonToolbar>
-          <Button variant="primary" onClick={this.props.playButton}>
-            Play
-          </Button>
-          <Button variant="primary" onClick={this.props.pauseButton}>
-            Pause
-          </Button>
-          <Button variant="primary" onClick={this.props.clear}>
-            Clear
-          </Button>
-          <Button variant="primary" onClick={this.props.slow}>
-            Slow
-          </Button>
-          <Button variant="primary" onClick={this.props.fast}>
-            Fast
-          </Button>
-          <Button variant="primary" onClick={this.props.seed}>
-            Seed
-          </Button>
-        </ButtonToolbar>
+        <Button className="button" onClick={this.props.playButton}>
+          Play
+        </Button>
+        <Button className="button" onClick={this.props.pauseButton}>
+          Pause
+        </Button>
+        <Button className="button" onClick={this.props.clear}>
+          Clear
+        </Button>
+        <Button className="button" onClick={this.props.slow}>
+          Slow
+        </Button>
+        <Button className="button" onClick={this.props.fast}>
+          Fast
+        </Button>
+        <Button className="button" onClick={this.props.seed}>
+          Seed
+        </Button>
       </div>
     );
   }

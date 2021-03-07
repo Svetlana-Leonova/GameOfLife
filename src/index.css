@@ -1,7 +1,3 @@
-body {
-  background-image: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/squares.png);
-}
-
 .box {
   display: inline-block;
   border: 1px solid black;
@@ -19,14 +15,20 @@ body {
   background-color: palevioletred;
 }
 
-.box:hover {
-  background: #00ccff;
-}
-
 .center {
   margin: auto;
-  display: table;
+  display: flex;
+  justify-content: space-evenly;
+  margin-left: 25rem;
+  margin-right: 25rem;
   margin-top: 10px;
+}
+
+.button {
+  background-color: powderblue;
+  font-family: "Trebuchet MS";
+  font-size: large;
+  border-radius: 10%;
 }
 
 .grid {
@@ -46,6 +48,7 @@ h4 {
   text-align: center;
   width: 50%;
   margin-top: 10px;
+  font-family: "Trebuchet MS";
 }
 
 h4 {
