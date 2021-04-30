@@ -10,7 +10,7 @@ This weekend project was inspired by a leetcode problem of the same name.
 
 It is a React implementation of the game of life algorithm.
 
-I followed the below tutorial from FreeCodeCamp for React implementation and refactored the code to use a different algorithm for running the simulation.
+I followed the below tutorial from FreeCodeCamp for React implementation and refactored the code from tutorial to use a different algorithm for running the simulation.
 
 [Link to React tutorial from FreeCodeCamp](https://www.youtube.com/watch?v=PM0_Er3SvFQ&list=WL)
 
